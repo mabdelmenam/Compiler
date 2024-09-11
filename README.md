@@ -1,5 +1,7 @@
 #### Small compiler built with Python, used to compiler our own custom programming language and compile the code to C.
 
+--------------------------------------------------------------------------------------------------------------------------------------------
+
 1) **Defining the Tokens:**
 
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -8,7 +10,7 @@ Tokens are the words of the programming langauge, the elements that the language
 
 The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
 
-***All of the Token types are located in the ***TokenType*** class in *lexer.py*. ***
+___All of the Token types are located in the `TokenType` class in *lexer.py*.___
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 2) **Building the Lexer:** (*Lexical Analyzer* or *Lexical Analysis* )
@@ -23,46 +25,41 @@ It also removes white spaces, tabs, comments, which are irrelevant to the progra
 3) **Define the Grammar:** The rules for the structure of the language
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-```
-**program -> statement*** A program consists of zero or more statements  
+`program -> statement*`
 
-**statement -> "PRINT" (expression | string) nl**  : A statement can be a PRINT command followed by an *expression* or *string*, then a newline  
-    **| "IF" comparison "THEREFORE" nl statement* "ENDIF" nl**  A statement can be a IF condition followed by THEREFORE, a block of statements, and an ENDIF followed by a newline.  
-    **| "WHILE" comparison "REPEAT" nl statement* "ENDWHILE" nl**  
-    **| "LABEL" ident nl**  
-    **| "GOTO" ident nl**  
-    **| "LET" ident "=" expression nl**  
-    **| "INPUT" ident nl**
+`statement -> "PRINT" (expression | string) nl` : A statement can be a PRINT command followed by an 
+*expression* or *string*, then a newline
 
-**comparison -> expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+**
+&nbsp;`| "IF" comparison "THEN" nl statement* "ENDIF" nl` : A statement can be a IF condition followed by THEREFORE, a block of statements, and an ENDIF followed by a newline.  
 
-**expression -> term (("-" | "+") term)**
+&nbsp;`| "WHILE" comparison "REPEAT" nl statement* "ENDWHILE" nl` : A statement can be a WHILE loop with a condition, followed by a block of statements inside the loop, and ending with ENDWHILE.
 
-**term -> unary (("/" | "*") unary)**
+&nbsp;`| "LABEL" ident nl` : A statement can define a label (for use with GOTO), followed by a newline.
 
-**unary -> ("+" | "-")? primary**
+&nbsp;`| "GOTO" ident nl` : A statement can jump to a label using GOTO, followed by a newline.
 
-**primary -> number | ident**
+&nbsp;`| "LET" ident "=" expression nl` : A statement can assign an expression to a variable (identifier) using LET, followed by a newline.
 
-**nl -> '\n'+**
-```
+&nbsp;`| "INPUT" ident nl` : A statement can prompt for user input and assign it to a variable (identifier), followed by a newline.
 
+`end statement`
+
+`comparison -> expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+` : two or more expressions compared using relational operators
+
+`expression -> term (("-" | "+") term)*` : An expression consists of one or more terms combined by + or -. Which allows for expressions such as: $${\color{lightgreen}(x + 5 - y * 3)}$$	
+
+`term -> unary (("/" | "*") unary)*` : A term consists of one or more unary expressions combined by * or /.  This builds on top of unary and primary to allow more complex mathematical operations.
+
+`unary -> ("+" | "-")? primary` : A unary expression can optionally have a + or - sign followed by a primary expression. **Example: -5 or +x, x just being a primary**
+
+`primary -> number | ident` : A primary expression is either a number or an identifier (variable).
+
+`nl -> '\n'+` : One or more newline characters
+
+###### ***All of the grammar rules build on top of each other, higher-level rules like __expressions__ rely on lower-level rules like __term__ , which relies on even more lower-level rules like __unary__ and __primary__***
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-Why Use Terms, Unary, and Primary?
-
-Primary: Can be either a number or an identifier, the most basic element of the grammar rules.
-
-Unary: Handles optional unary operators (+, -) in front of primary expressions. **Example: -5 or +x, x just being a primary**
-
-Term: A term is a combination of unary expressions connected by multiplication or division (* or /). This builds on top of unary and primary to allow more complex mathematical operations.
-
-Expression: An expression combines terms using addition and subtraction (+, -). This gives a full range of arithmetic expressions like  ( x + 5 - y * 3 ) .
-
-***All of the grammar rules build on top of each other, higher-level rules like __expressions__ rely on lower-level rules like __term__ , which relies on even more lower-level rules like __unary__ and __primary__***
-
-
-2) Create the Parser: The parser will make sure that the structure of the tokens is correct, it will match the input tokens against the grammar rules, ensuring that the code is valid.
+4) Create the Parser: The parser will make sure that the structure of the tokens is correct, it will match the input tokens against the grammar rules, ensuring that the code is valid.
 
 Will use a recursive descent parser using a top down approach
