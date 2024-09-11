@@ -1,15 +1,19 @@
-####Small compiler built with Python, used to compiler our own custom programming language and compile the code to C.
+#### Small compiler built with Python, used to compiler our own custom programming language and compile the code to C.
 
 1) **Defining the Tokens:**
+--------------------------------------------------------------------------------------------------------------------------------------------
+    Tokens are the words of the programming langauge, the elements that the language will recognize. 
+    The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
 
-Tokens are the words of the programming langauge, the elements that the language will recognize. 
-The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
+    All of the Token types are located in the ***TokenType*** class in *lexer.py*.
 
-All of the Token types are located in the __TokenType__ class in *lexer.py*.
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 2) Building the Lexer (*Lexical Analyzer* or *Lexical Analysis* )
 
-
+    *Text*
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
 3) Define the Grammar : The rules for the structure of the language
 --------------------------------------------------------------------------------------------------------------------------------------------
 **program -> statement*** A program consists of zero or more statements
@@ -34,6 +38,7 @@ All of the Token types are located in the __TokenType__ class in *lexer.py*.
 
 **nl -> '\n'+**
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 Why Use Terms, Unary, and Primary?
 Primary: Can be either a number or an identifier, the most basic element of the grammar rules.
