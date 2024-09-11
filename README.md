@@ -5,33 +5,32 @@
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 Tokens are the words of the programming langauge, the elements that the language will recognize. 
+
 The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
 
-All of the Token types are located in the ***TokenType*** class in *lexer.py*.
-
-* Tokens are the words of the programming langauge, the elements that the language will recognize. 
-* The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
-
-* All of the Token types are located in the ***TokenType*** class in *lexer.py*.
+***All of the Token types are located in the ***TokenType*** class in *lexer.py*. ***
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-2) Building the Lexer (*Lexical Analyzer* or *Lexical Analysis* )
+2) **Building the Lexer:** (*Lexical Analyzer* or *Lexical Analysis* )
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-    *Text*
+The Lexer is responsible for reading the source code and converting it into a stream of tokens. It processes the code character by character
+into our predefined token types in our ***TokenType*** class. Types such as *keywords*, *operators*, *identifiers*..etc.
+
+It also removes white spaces, tabs, comments, which are irrelevant to the programs logic.
 --------------------------------------------------------------------------------------------------------------------------------------------
-3) Define the Grammar : The rules for the structure of the language
+3) **Define the Grammar:** The rules for the structure of the language
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-**program -> statement*** A program consists of zero or more statements
+**program -> statement*** A program consists of zero or more statements  
 
-**statement -> "PRINT" (expression | string) nl**  : A statement can be a PRINT command followed by an *expression* or *string*, then a newline
-           **| "IF" comparison "THEN" nl statement* "ENDIF" nl**  
-           **| "WHILE" comparison "REPEAT" nl statement* "ENDWHILE" nl**  
-           **| "LABEL" ident nl**  
-           **| "GOTO" ident nl**  
-           **| "LET" ident "=" expression nl**  
-           **| "INPUT" ident nl**
+**statement -> "PRINT" (expression | string) nl**  : A statement can be a PRINT command followed by an *expression* or *string*, then a newline  
+&nbsp;&nbsp;&nbsp;&nbsp;**| "IF" comparison "THEREFORE" nl statement* "ENDIF" nl**  A statement can be a IF condition followed by THEREFORE, a block of statements, and an ENDIF followed by a new line.
+&nbsp;&nbsp;&nbsp;&nbsp;**| "WHILE" comparison "REPEAT" nl statement* "ENDWHILE" nl**  
+&nbsp;&nbsp;&nbsp;&nbsp;**| "LABEL" ident nl**  
+&nbsp;&nbsp;&nbsp;&nbsp;**| "GOTO" ident nl**  
+&nbsp;&nbsp;&nbsp;&nbsp;**| "LET" ident "=" expression nl**  
+&nbsp;&nbsp;&nbsp;&nbsp;**| "INPUT" ident nl**
 
 **comparison -> expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+**
 
@@ -44,6 +43,7 @@ All of the Token types are located in the ***TokenType*** class in *lexer.py*.
 **primary -> number | ident**
 
 **nl -> '\n'+**
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
