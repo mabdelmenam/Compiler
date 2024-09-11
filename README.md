@@ -1,6 +1,7 @@
-Small compiler built with Python, used to compiler our own custom programming language and compile the code to C.
+####Small compiler built with Python, used to compiler our own custom programming language and compile the code to C.
 
-1) Defining the Tokens: 
+1) **Defining the Tokens:**
+
 Tokens are the words of the programming langauge, the elements that the language will recognize. 
 The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
 
@@ -10,6 +11,7 @@ All of the Token types are located in the __TokenType__ class in *lexer.py*.
 
 
 3) Define the Grammar : The rules for the structure of the language
+--------------------------------------------------------------------------------------------------------------------------------------------
 **program -> statement*** A program consists of zero or more statements
 
 **statement -> "PRINT" (expression | string) nl**  A statement can be a PRINT command followed by an *expression* or *string*, then a newline
