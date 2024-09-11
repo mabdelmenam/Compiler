@@ -4,10 +4,15 @@
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-    Tokens are the words of the programming langauge, the elements that the language will recognize. 
-    The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
+Tokens are the words of the programming langauge, the elements that the language will recognize. 
+The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
 
-    All of the Token types are located in the ***TokenType*** class in *lexer.py*.
+All of the Token types are located in the ***TokenType*** class in *lexer.py*.
+
+* Tokens are the words of the programming langauge, the elements that the language will recognize. 
+* The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *special symbols* like __=  ==  !=  >  <  >=  <=__
+
+* All of the Token types are located in the ***TokenType*** class in *lexer.py*.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 2) Building the Lexer (*Lexical Analyzer* or *Lexical Analysis* )
