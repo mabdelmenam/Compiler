@@ -1,14 +1,18 @@
 from lexer import *
+from parser import *
 
 def main():
-    source = "=-"
+    source = 'PRINT x'
 
     lexer = Lexer(source)
-    token = lexer.getToken()
-
+    parser = Parser(lexer)
+    #token = lexer.getToken()
+    parser.program()
+    # 
+    """  token = lexer.getToken()
     while( token.Type != TokenType.EOF ):
-        print(lexer.currChar)
-        print("\n", token.Type)     
-        token = lexer.getToken()   
+        print(token.text)
+        print(token.Type)     
+        token = lexer.getToken()   """
 
 main()
