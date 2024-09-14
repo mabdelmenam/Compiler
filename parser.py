@@ -1,4 +1,5 @@
 from lexer import *
+import sys
 
 class Parser: 
     def __init__(self,lexer):
@@ -51,9 +52,29 @@ class Parser:
             else: 
                 self.expression()
         #if" comparison "therefore" nl statement* ("else" nl statement*)? "endif" nl
+        elif self.checkToken(TokenType.IF):
+            print("IF")
+            self.nextToken()
+            self.comparison()
+        self.newline()
+        #if" comparison "therefore" nl statement* ("else" nl statement*)? "endif" nl
         #elif self.checkToken(TokenType.IF):
          #   self.nextToken()
           #  self.comparison
+    
+    #comparison -> expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+
+    # a + b 
+    def comparison(self):
+        print("Comparison")
+        self.expression()
+
+        if self.checkToken(TokenType.EqEq) or self.checkToken(TokenType.NOTEQUALS) or self.checkToken(TokenType.GREATERTHAN) \
+        or self.checkToken(TokenType.GREATERTHANEQ) or self.checkToken(TokenType.LESSTHAN) or self.checkToken(TokenType.LESSTHANEQ): #if a > b and b < c
+            self.nextToken()
+            self.expression()
+        else:
+            sys.exit("Expected a comparison operator and receieved " + self.curr_Token.text)
+
     def expression(self):
         #expression -> term (("-" | "+") term)*
         self.term()
@@ -82,9 +103,15 @@ class Parser:
 
         if self.checkToken(TokenType.NUMBER):
             self.nextToken()
+        elif self.checkToken(TokenType.IDENTIFIER):
+            if self.curr_Token.text not in self.variables: #checks if the current identifier or variable being used has first been declared,
+                #A user may attempt to PRINT x as an example, while x has not yet been declared, which is impossible as x does not yet exist, thus we must exit the program
+                sys.exit("Variable " + self.curr_Token.text + " has not been declared.")
+            self.nextToken() #proceed to next token after confirming that an identifier is valid
         else:
             sys.exit("Unexpected token:  " + self.curr_Token.text)
     def newline(self):
+        print("NEWLINE")
         #nl -> '\n'+
         self.match(TokenType.NEWLINE)
 
