@@ -50,10 +50,13 @@ class Parser:
             self.nextToken()
             
             if self.checkToken(TokenType.STRING):
-                print("STRING")
+                #print("STRING")
                 self.nextToken()
             else: 
                 self.expression()
+
+            #print("expecting a NEWLINE after PRINT")
+            #self.newline()
         #if" comparison "therefore" nl statement* ("else if" comparison "therefore" nl statement*)* ("else" nl statement*)? "endif" nl
         elif self.checkToken(TokenType.IF):
             print("IF")
@@ -61,12 +64,15 @@ class Parser:
             self.comparison()
 
             self.match(TokenType.THEREFORE)
-            print("THEREFORE")
+            #print("THEREFORE")
             self.newline()
 
-            while not self.checkToken(TokenType.ELSE_IF) or not self.checkToken(TokenType.ELSE) or not self.checkToken(TokenType.ENDIF): #if" comparison "therefore" nl statement*
+            while not (self.checkToken(TokenType.ELSE_IF) or self.checkToken(TokenType.ELSE) or self.checkToken(TokenType.ENDIF)): #if" comparison "therefore" nl statement*
+                print("Processing statements in IF block")
                 self.statement()
+                #print("after")
             
+            #print("exit")
             while self.checkToken(TokenType.ELSE_IF): #("else if" comparison "therefore" nl statement*)*
                 print("ELSE IF")
                 self.nextToken()
@@ -77,13 +83,16 @@ class Parser:
                 self.newline()
 
                 while not self.checkToken(TokenType.ELSE) or not self.checkToken(TokenType.ENDIF): #Parse statements in the ELSE IF BLOCK
-                        self.statement()
+                    print("Processing statements in ELSE IF block")
+                    self.statement()
             
             if self.checkToken(TokenType.ELSE): #("else" nl statement*)? Optional Else block
                 print("ELSE")
                 self.nextToken()
+                print("Expecting a NEWLINE after ELSE")
                 self.newline()
                 while not self.checkToken(TokenType.ENDIF): #Parse statements in ELSE block
+                    print("Processing statements in ELSE block")
                     self.statement()
             
             self.match(TokenType.ENDIF)
@@ -103,6 +112,9 @@ class Parser:
                     self.newline()
                     while not self.checkToken(TokenType.ENDIF):
                         self.statement() """
+        
+        elif self.checkToken(TokenType.WHILE):
+            print("WHILE")
 
 
         #var" ident ("=" expression)? nl
@@ -119,18 +131,18 @@ class Parser:
             
             #print("Current token before: ", self.curr_Token.Type)
             self.match(TokenType.IDENTIFIER)
-            print("Identified!!")
+            #print("Identified!!")
             #print("Current Token after: ", self.curr_Token.Type)
 
             #print("Peeked token is: ", self.peek_Token.Type)
             if self.checkToken(TokenType.EQUALS):
                 self.match(TokenType.EQUALS)
-                print("EQUALS")
+                #print("EQUALS")
                 print(f"{variable_name} \n", end="") #where is the equals sign like this  self.emitter.emit(self.curToken.text + " = ")
                 self.expression()
                 print(";")
             
-        self.match(TokenType.NEWLINE) #Important!!! Signifies the end of a statement, without doing this the parser will continue parsing even though it should stop at the end of the current line
+        self.newline() #Important!!! Signifies the end of a statement, without doing this the parser will continue parsing even though it should stop at the end of the current line
 
     #comparison -> expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+
     # a + b 
@@ -205,7 +217,7 @@ class Parser:
     def newline(self):
         print("NEWLINE")
         #nl -> '\n'+
-        self.match(TokenType.NEWLINE)
+        #self.match(TokenType.NEWLINE)
 
         while self.checkToken(TokenType.NEWLINE):
             self.nextToken()
