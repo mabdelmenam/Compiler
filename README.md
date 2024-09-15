@@ -30,7 +30,7 @@ It also removes white spaces, tabs, comments, which are irrelevant to the progra
 `statement -> "print" (expression | string) nl` : A statement can be a PRINT command followed by an 
 *expression* or *string*, then a newline
 
-&nbsp;`| "if" comparison "therefore" nl statement* ("else" nl statement*)? "endif" nl` : A statement can be a IF condition followed by THEREFORE, a block of statements, and an ENDIF followed by a newline.  
+&nbsp;`| if" comparison "therefore" nl statement* ("else if" comparison "therefore" nl statement*)* ("else" nl statement*)? "endif" nl` : A statement can be a IF condition followed by THEREFORE, a block of statements, and an ENDIF followed by a newline.  
 
 &nbsp;`| "while" comparison "do" nl statement* "endwhile" nl` : A statement can be a WHILE loop with a condition, followed by a block of statements inside the loop, and ending with ENDWHILE.
 

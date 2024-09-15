@@ -26,11 +26,12 @@ class Parser:
         #checks if the current token matches, if it does move to the next
     def match(self, tokenType):
         if self.checkToken(tokenType) is not True:
-            sys.exit("Expected ${self.text} but returned ${self.curr_Token.name}")
+            print(tokenType.__dict__)
+            sys.exit("Expected" + tokenType.name + " but returned: " + self.curr_Token.text)
         self.nextToken()
         #moves over to the next token
     def nextToken(self):
-        print("in nextToken")
+        #print("in nextToken")
         self.curr_Token = self.peek_Token
         self.peek_Token = self.lexer.getToken()
         #Grammar
@@ -42,7 +43,7 @@ class Parser:
         
         while not self.checkToken(TokenType.EOF):
             self.statement()
-    def statement(self):
+    def statement(self): #Includes all the different statement parsing rules
         #statement -> "print" (expression | string) nl
         if self.checkToken(TokenType.PRINT):
             print("PRINT-STATEMENT")
@@ -60,6 +61,7 @@ class Parser:
             self.comparison()
 
             self.match(TokenType.THEREFORE)
+            print("THEREFORE")
             self.newline()
 
             while not self.checkToken(TokenType.ELSE_IF) or not self.checkToken(TokenType.ELSE) or not self.checkToken(TokenType.ENDIF): #if" comparison "therefore" nl statement*
@@ -71,15 +73,17 @@ class Parser:
                 self.comparison()
 
                 self.match(TokenType.THEREFORE)
+                print("THEREFORE")
                 self.newline()
 
-                while not self.checkToken(TokenType.ELSE) or not self.checkToken(TokenType.ENDIF):
+                while not self.checkToken(TokenType.ELSE) or not self.checkToken(TokenType.ENDIF): #Parse statements in the ELSE IF BLOCK
                         self.statement()
             
-            if self.checkToken(TokenType.ELSE): #("else" nl statement*)?
+            if self.checkToken(TokenType.ELSE): #("else" nl statement*)? Optional Else block
+                print("ELSE")
                 self.nextToken()
                 self.newline()
-                while not self.checkToken(TokenType.ENDIF):
+                while not self.checkToken(TokenType.ENDIF): #Parse statements in ELSE block
                     self.statement()
             
             self.match(TokenType.ENDIF)
@@ -113,18 +117,21 @@ class Parser:
             else:
                 sys.exit(f"Variable '{variable_name} already declared.")
             
+            #print("Current token before: ", self.curr_Token.Type)
             self.match(TokenType.IDENTIFIER)
+            print("Identified!!")
+            #print("Current Token after: ", self.curr_Token.Type)
 
-            if self.checkPeekToken(TokenType.EQUALS):
+            #print("Peeked token is: ", self.peek_Token.Type)
+            if self.checkToken(TokenType.EQUALS):
                 self.match(TokenType.EQUALS)
                 print("EQUALS")
-                print(f"{variable_name}")
+                print(f"{variable_name} \n", end="") #where is the equals sign like this  self.emitter.emit(self.curToken.text + " = ")
                 self.expression()
                 print(";")
-
-            self.match()
             
-    
+        self.match(TokenType.NEWLINE) #Important!!! Signifies the end of a statement, without doing this the parser will continue parsing even though it should stop at the end of the current line
+
     #comparison -> expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+
     # a + b 
     def comparison(self):
@@ -148,28 +155,45 @@ class Parser:
         self.term()
 
         while( self.checkToken(TokenType.PLUS) or self.checkToken(TokenType.MINUS)):
-            self.nextToken()
+            if self.checkToken(TokenType.PLUS):
+                self.match(TokenType.PLUS)
+                print(" + ", end="")
+            elif self.checkToken(TokenType.MINUS):
+                self.match(TokenType.MINUS)
+                print(" - ", end="")
             self.term()
     def term(self):
         #term -> unary (("/" | "*") unary)*
         self.unary()
 
-        while ( self.checkToken(TokenType.ASTERISK) or self.checkToken(TokenType.SLASH)):
-            self.nextToken()
+        while self.checkToken(TokenType.ASTERISK) or self.checkToken(TokenType.SLASH):
+            if self.checkToken(TokenType.ASTERISK):
+                self.match(TokenType.ASTERISK)
+                print(" * ", end="")
+            elif self.checkToken(TokenType.SLASH):
+                self.match(TokenType.SLASH)
+                print(" / ", end="")
+                
             self.unary()
     def unary(self):
         #unary -> ("+" | "-")? primary
         print("UNARY")
 
         if self.checkToken(TokenType.PLUS) or self.checkToken(TokenType.MINUS):
+            if self.checkToken(TokenType.PLUS):
+                print(" +", end="")
+            elif self.checkToken(TokenType.MINUS):
+                print(" -", end="")
             self.nextToken()
-            self.primary()
+
         self.primary()
     def primary(self):
         #primary -> number | ident
         print("PRIMARY")
 
+        print("Current Token in Primary: ", self.curr_Token.Type, " Value: ", self.curr_Token.text)
         if self.checkToken(TokenType.NUMBER):
+            print(self.curr_Token.text, "\n", end="")
             self.nextToken()
         elif self.checkToken(TokenType.IDENTIFIER):
             if self.curr_Token.text not in self.variables: #checks if the current identifier or variable being used has first been declared,

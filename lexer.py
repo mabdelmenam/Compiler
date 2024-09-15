@@ -138,18 +138,20 @@ class Lexer:
         else:
             self.abort("Unknown Token: " + self.currChar)
         self.nextChar()
+        #print("The token is: ", token.Type)
         return token
 
-class Token:
-    def __init__(self, tokenText, tokenType):
-        self.text = tokenText
-        self.Type = tokenType
+class Token: #every time this is used, I am creating an instance of the Token class
+    def __init__(self, tokenText, tokenType): #constructor method that initialized each token object with a text and a Type
+        self.text = tokenText 
+        self.Type = tokenType #instance variable of the Token class and is set to the value passed in tokenType
     def keywordCheck(text):
         for x in TokenType:
             if x.name == text and x.value >= 50 and x.value <=59:
                 #is a keyword
                 return x
         return None
+    #In summary, an instance of a class is the actual object created from the class. In this case, token is an instance of the Token class, and it holds the attributes text and Type, which store information about the specific token.
 
 class TokenType(Enum):
     #name = value
@@ -159,12 +161,12 @@ class TokenType(Enum):
     IDENTIFIER = 2
     STRING = 3
     #Keywords
-    LABEL = 50
-    GOTO = 51 
-    PRINT = 52
-    VAR = 53
-    IF = 54
-    THEREFORE = 55
+    PRINT = 50
+    VAR = 51
+    IF = 52
+    THEREFORE = 53
+    ELSE = 54
+    ELSE_IF = 55
     ENDIF = 56
     WHILE = 57
     DONTSTOP = 58
