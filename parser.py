@@ -25,9 +25,9 @@ class Parser:
             return False
         #checks if the current token matches, if it does move to the next
     def match(self, tokenType):
-        if self.checkToken(tokenType) is not True:
+        if not self.checkToken(tokenType):
             print(tokenType.__dict__)
-            sys.exit("Expected" + tokenType.name + " but returned: " + self.curr_Token.text)
+            sys.exit("Expected " + tokenType.name + " but returned: " + self.curr_Token.text)
         self.nextToken()
         #moves over to the next token
     def nextToken(self):
@@ -113,8 +113,19 @@ class Parser:
                     while not self.checkToken(TokenType.ENDIF):
                         self.statement() """
         
+        #"while" comparison "do" nl statement* "endwhile" nl
         elif self.checkToken(TokenType.WHILE):
             print("WHILE")
+            self.nextToken()
+            self.comparison()
+
+            self.match(TokenType.DO)
+            self.newline()
+
+            while not self.checkToken(TokenType.ENDWHILE):
+                self.statement()
+            
+            self.match(TokenType.ENDWHILE)
 
 
         #var" ident ("=" expression)? nl
@@ -141,6 +152,20 @@ class Parser:
                 print(f"{variable_name} \n", end="") #where is the equals sign like this  self.emitter.emit(self.curToken.text + " = ")
                 self.expression()
                 print(";")
+        #UPDATING IDENTIFIER (VAR), initializing
+        elif self.checkToken(TokenType.IDENTIFIER):
+            variable_name = self.curr_Token.text
+            if variable_name not in self.variables:
+                sys.exit("Variable " + variable_name + " not does not exist.")
+            else:
+                print("Updating variable: " , variable_name)
+            
+            self.nextToken()
+            self.match(TokenType.EQUALS)
+
+            self.expression()
+
+
             
         self.newline() #Important!!! Signifies the end of a statement, without doing this the parser will continue parsing even though it should stop at the end of the current line
 
@@ -217,7 +242,7 @@ class Parser:
     def newline(self):
         print("NEWLINE")
         #nl -> '\n'+
-        #self.match(TokenType.NEWLINE)
+        self.match(TokenType.NEWLINE)
 
         while self.checkToken(TokenType.NEWLINE):
             self.nextToken()
