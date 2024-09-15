@@ -153,6 +153,7 @@ class Parser:
                 self.expression()
                 print(";")
         #UPDATING IDENTIFIER (VAR), initializing
+        # ident "=" expression nl
         elif self.checkToken(TokenType.IDENTIFIER):
             variable_name = self.curr_Token.text
             if variable_name not in self.variables:
