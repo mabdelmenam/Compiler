@@ -1,5 +1,7 @@
 ### Small compiler built with Python, used to compiler our own custom programming language and compile the code to C.
 
+***To see an example of our code and the compilers result, take a look at `code.mylang` and `mycode.c`***
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 1. **Defining the Tokens:**
