@@ -2,7 +2,7 @@
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-1) ### **Defining the Tokens:**
+### 1. **Defining the Tokens:**
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ The Tokens will include *keywords*, *operators*, *identifiers*, *numbers*, and *
 ___All of the Token types are located in the `TokenType` class in *lexer.py*.___
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-2) ### **Building the Lexer:** (*Lexical Analyzer* or *Lexical Analysis* )
+### 2. **Building the Lexer:** (*Lexical Analyzer* or *Lexical Analysis* )
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 The Lexer is responsible for reading the source code and converting it into a stream of tokens. It processes the code character by character
@@ -22,7 +22,7 @@ into our predefined token types in our ***TokenType*** class, Types such as *key
 It also removes white spaces, tabs, comments, which are irrelevant to the programs logic.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-3) ### **Define the Grammar:** The rules for the structure of the language
+### 3. **Define the Grammar:** The rules for the structure of the language
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 `program -> statement*`
@@ -55,13 +55,13 @@ It also removes white spaces, tabs, comments, which are irrelevant to the progra
 ###### ***All of the grammar rules build on top of each other, higher-level rules like __expressions__ rely on lower-level rules like __term__ , which relies on even more lower-level rules like __unary__ and __primary__***
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-4) ### **Create the Parser**: The parser will make sure that the structure of the tokens is correct, it will match the input tokens against the grammar rules, ensuring that the code is valid.
+### 4. **Create the Parser**: The parser will make sure that the structure of the tokens is correct, it will match the input tokens against the grammar rules, ensuring that the code is valid.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
   Will use a recursive descent parser using a top down approach
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-5) ### **Emitter** : The emitter will be responsible for generating our output code in C. It takes parses statements, expressions, and all of the parsed grammar and converts it all into corresponding lines of code in C. 
+### 5. **Emitter** : The emitter will be responsible for generating our output code in C. It takes parses statements, expressions, and all of the parsed grammar and converts it all into corresponding lines of code in C. 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 *Functions used*: 
