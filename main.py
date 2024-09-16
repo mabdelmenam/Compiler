@@ -1,5 +1,6 @@
 from lexer import *
 from parser import *
+from emitter import *
 
 def main():
     #source = 'VAR x = 5'
@@ -10,15 +11,11 @@ def main():
         source = inputFile.read()
 
     lexer = Lexer(source)
-    parser = Parser(lexer)
-    #token = lexer.getToken()
+    emitter = Emitter("mycode.c")
+    parser = Parser(lexer, emitter)
+    
     parser.program()
+    emitter.writeFile()
     print("Parsing Complete")
-    # 
-    """  token = lexer.getToken()
-    while( token.Type != TokenType.EOF ):
-        print(token.text)
-        print(token.Type)     
-        token = lexer.getToken()   """
 
 main()

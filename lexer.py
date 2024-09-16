@@ -33,8 +33,15 @@ class Lexer:
     def skipComment(self):
         if self.currChar == '@':
             if self.peek() == '@':
+                self.nextChar()
+                self.nextChar()
+                startPosition = self.currPos #the current position is the first character after the second @, starting the comment
                 while self.currChar != '\n':
                     self.nextChar()
+                
+                for i in range(startPosition, self.currPos):
+                    comment = comment + self.source[i]
+
             else:
                 self.abort("Unknown Token: " + self.peek())
     #Core function which will return the next token in the source code. Will be used to classify the current sequence of chars into different token types
@@ -149,6 +156,7 @@ class Token: #every time this is used, I am creating an instance of the Token cl
         for x in TokenType:
             if x.name == text and x.value >= 50 and x.value <=59:
                 #is a keyword
+                print("Keyword: ", x.name)
                 return x
         return None
     #In summary, an instance of a class is the actual object created from the class. In this case, token is an instance of the Token class, and it holds the attributes text and Type, which store information about the specific token.
@@ -166,10 +174,10 @@ class TokenType(Enum):
     IF = 52
     THEREFORE = 53
     ELSE = 54
-    ELSE_IF = 55
+    ELSEIF = 55
     ENDIF = 56
     WHILE = 57
-    DONTSTOP = 58
+    DO = 58
     ENDWHILE = 59
     #Operators
     EQUALS = 100
