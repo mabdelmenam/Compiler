@@ -40,12 +40,12 @@ class Parser:
     #-------------------------Grammar Rules-------------------------
     def program(self):
         print("entered program")
+        print("INITIAL NUMBER OF LINES: ", self.lexer.Lines)
         self.emitter.headerLine("#include <stdio.h>")
         self.emitter.headerLine("int main(void){")
         while self.checkToken(TokenType.NEWLINE):
-            
             self.nextToken()
-        
+                    
         while not self.checkToken(TokenType.EOF):
             self.statement()
         
@@ -53,6 +53,12 @@ class Parser:
         self.emitter.emitLine("}")
     def statement(self): #Includes all the different statement parsing rules
         #statement -> "print" (expression | string) nl
+        print("Lines: ", self.lexer.Lines)
+        print("Comment in Dictionary: ", self.lexer.commentDict)
+        if (self.lexer.Lines - 1) in self.lexer.commentDict:
+            self.emitter.addComment(self.lexer.commentDict[self.lexer.Lines - 1])
+            print("parser lines")
+            #self.lexer.commentDict[self.lexer.Lines - 1]
         if self.checkToken(TokenType.PRINT):
             print("PRINT-STATEMENT")
             self.nextToken()

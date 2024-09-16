@@ -6,6 +6,8 @@ class Emitter:
     #write the header (variable declarations, includes)
     def headerLine(self, code):
         self.header += code + '\n'
+    def addComment(self, comment):
+        self.code += "/* " + comment + " */\n"
     #write code to main body of C file
     def emit(self,code):
         self.code +=code

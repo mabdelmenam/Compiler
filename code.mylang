@@ -1,0 +1,36 @@
+VAR x = 10
+VAR y = 5
+VAR result
+
+@@ Test variable declaration, initialization, and arithmetic
+result = x + y * 2 - 3
+PRINT "The result of x + y * 2 - 3 is:"
+PRINT result
+
+@@ Test IF, ELSE IF, ELSE conditionals
+IF result > 20 THEREFORE
+    PRINT "Result is greater than 20"
+ELSEIF result == 17 THEREFORE
+    PRINT "Result is exactly 17"
+ELSE
+    PRINT "Result is less than 17"
+ENDIF
+
+@@ Test WHILE loop
+VAR counter = 0
+WHILE counter < 5 DO
+    PRINT "Counter value is:"
+    PRINT counter
+    counter = counter + 1
+ENDWHILE
+
+@@ Test reassigning variables and additional calculations
+x = x + 3
+y = y * 2
+result = x + y
+PRINT "After updating x and y, the new result is:"
+PRINT result
+
+PRINT "HELLO"
+PRINT "HI"
+PRINT "BOY"

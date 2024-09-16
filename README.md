@@ -30,13 +30,13 @@ It also removes white spaces, tabs, comments, which are irrelevant to the progra
 `statement -> "print" (expression | string) nl` : A statement can be a PRINT command followed by an 
 *expression* or *string*, then a newline
 
-&nbsp;`| if" comparison "therefore" nl statement* ("else if" comparison "therefore" nl statement*)* ("else" nl statement*)? "endif" nl` : A statement can be a IF condition followed by THEREFORE, a block of statements, and an ENDIF followed by a newline.  
+&nbsp;`| "if" comparison "therefore" nl statement* ("else if" comparison "therefore" nl statement*)* ("else" nl statement*)? "endif" nl` : A statement can be a IF condition followed by THEREFORE, a block of statements, and an ENDIF followed by a newline.  
 
 &nbsp;`| "while" comparison "do" nl statement* "endwhile" nl` : A statement can be a WHILE loop with a condition, followed by a block of statements inside the loop, and ending with ENDWHILE.
 
-&nbsp;`| "var" ident "=" expression nl` : A statement can assign an expression to a variable using ' var ' followed by a newline.
+&nbsp;`| "var" ident ("=" expression)? nl` : A statement can assign an expression to a variable using ' var ' followed by a newline.
 
-&nbsp;`| "input" ident nl` : A statement can prompt for user input and assign it to a variable (identifier), followed by a newline.
+&nbsp;`| ident "=" expression nl` : An identifier can be assigned a value or expression.
 
 `end statement`
 
@@ -60,4 +60,16 @@ It also removes white spaces, tabs, comments, which are irrelevant to the progra
 
 Will use a recursive descent parser using a top down approach
 
-5) Semantic Analysis
+5) **Emitter** : The emitter will be responsible for generating our output code in C. It takes parses statements, expressions, and all of the parsed grammar and converts it all into corresponding lines of code in C. 
+
+*Functions used*: 
+
+`headerLine` : Adds a line of code to the header section of the C file, in our case `#include <stdio.h>` and `int main(void){` as well as variable declarations.
+
+`addComment` : Adds a comment formatted in C-style `/* */` to the corresponding line in the source code where `@@` is found.
+
+`emit` : Most used function, appends code to the main body without adding a newline. Used for generating code for all types of statements, expressions, comaprisons, any code written in our language.
+
+`emitLine` : Completes a generated line of code emitted by `emit()`, followed by a newline, ensuring that generated code is properly formatted with line breaks.
+
+`writeFile` : Writes all of the combined code a specific file or file path, saving the output to a `.c` file. In this case `mycode.c`

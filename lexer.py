@@ -5,6 +5,10 @@ class Lexer:
         self.source = source + '\n'
         self.currChar = ''
         self.currPos = -1
+
+        self.Lines = 1 #used to track the line number we are on, this will be useful to check if there is a comment on that line or not
+        #if there is, the we store that comment and the corresponding line as a key value pair in our dictionary
+        self.commentDict = {}
         self.nextChar()
         pass
     #Moves to the next character in the source  code 
@@ -39,8 +43,13 @@ class Lexer:
                 while self.currChar != '\n':
                     self.nextChar()
                 
-                for i in range(startPosition, self.currPos):
+                comment = ""
+                for i in range(startPosition, self.currPos + 1):
                     comment = comment + self.source[i]
+                
+                self.commentDict[self.Lines] = comment.strip()
+
+                print("Comment Line: " , self.Lines , ": Comment Text: " , comment.strip())
 
             else:
                 self.abort("Unknown Token: " + self.peek())
@@ -87,6 +96,8 @@ class Lexer:
             token = Token(self.currChar, TokenType.SLASH)
         elif self.currChar == '\n': 
             token = Token(self.currChar, TokenType.NEWLINE)
+            self.Lines += 1
+            print("newline encountered: " ,self.Lines)
         elif self.currChar == '\0': #End of File
             token = Token(self.currChar, TokenType.EOF)
         #Printing a String
