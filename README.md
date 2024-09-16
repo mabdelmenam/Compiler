@@ -55,13 +55,15 @@ It also removes white spaces, tabs, comments, which are irrelevant to the progra
 ###### ***All of the grammar rules build on top of each other, higher-level rules like __expressions__ rely on lower-level rules like __term__ , which relies on even more lower-level rules like __unary__ and __primary__***
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-
 4) **Create the Parser**: The parser will make sure that the structure of the tokens is correct, it will match the input tokens against the grammar rules, ensuring that the code is valid.
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 Will use a recursive descent parser using a top down approach
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 5) **Emitter** : The emitter will be responsible for generating our output code in C. It takes parses statements, expressions, and all of the parsed grammar and converts it all into corresponding lines of code in C. 
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 *Functions used*: 
 
 `headerLine` : Adds a line of code to the header section of the C file, in our case `#include <stdio.h>` and `int main(void){` as well as variable declarations.
@@ -73,3 +75,5 @@ Will use a recursive descent parser using a top down approach
 `emitLine` : Completes a generated line of code emitted by `emit()`, followed by a newline, ensuring that generated code is properly formatted with line breaks.
 
 `writeFile` : Writes all of the combined code a specific file or file path, saving the output to a `.c` file. In this case `mycode.c`
+
+--------------------------------------------------------------------------------------------------------------------------------------------
