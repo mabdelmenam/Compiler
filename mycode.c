@@ -4,6 +4,7 @@ float x;
 float y;
 float result;
 float counter;
+/* THIS CODE IS TO TEST FUNCTIONALITY OF OUR COMPILER!! */
 x = 10;
 y = 5;
 /* Test variable declaration, initialization, and arithmetic */
